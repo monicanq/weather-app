@@ -3,6 +3,7 @@ const card = document.querySelector('.card');
 const details = document.querySelector('.details');
 const time = document.querySelector('img.time');
 const icon = document.querySelector('.icon img');
+const region = document.querySelector('.region');
 console.log('time',time);
 console.log('icon', icon);
 const forecast = new Forecast();
@@ -34,6 +35,13 @@ const updateUI = (data) => {
     time.src = daytime;
     //Update weather icon
     icon.src= `img/icons/${weather.WeatherIcon}.svg`;
+
+    //Update region
+    // region.innerHTML = `
+    //                     <h3>${cityDets.Country.LocalizedName} - </h3>
+    //                     <h3>${cityDets.Region.LocalizedName}</h3>
+    //                     `;
+
 };
 
 cityForm.addEventListener('submit', e => {

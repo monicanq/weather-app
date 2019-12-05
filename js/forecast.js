@@ -1,4 +1,4 @@
-
+APIKey = 'Zdgkz1remcUCQrmfm3Qn4aJi3r9qyl21'
 class Forecast{
     constructor(){
         this.key = APIKey;

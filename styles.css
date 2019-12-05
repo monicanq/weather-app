@@ -13,3 +13,20 @@ body{
     width: 100px;
     margin-bottom: -50px;
 }
+.cityinfo{
+    padding:10px;
+}
+.hide{
+    display: none;
+}
+#daytime{
+    margin:5px 0;
+    padding:5px;
+}
+.time-card img{
+    max-width: 50%;
+    margin: auto;
+}
+h5.card-title{
+    margin-top:0.75rem;
+}

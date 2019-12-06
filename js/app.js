@@ -14,15 +14,19 @@ const tableforecast = document.querySelector('#forecast table');
 const forecast = new Forecast();
 const timecon = new timeConvert();
 const avgtemp = new avgTemp();
+const minmax = new minMax();
+
 
 
 const updateUI = (data) => {
 
     //destructure properties
     const {cityWeather, fiveForecast} = data;
-
+    console.log('data retrieved',data);
     const today = timecon.convertDay(cityWeather.dt,0);
     const date = timecon.convertTimeDate(cityWeather.dt);
+    console.log(date);
+    
     // Update details template ${cityDets.weather[0].description}
     details.innerHTML=`
         <div class="text-muted text-uppercase text-center details">
@@ -55,6 +59,9 @@ const updateUI = (data) => {
     
     avgtemp.avgCalc(fiveForecast.list);
 
+    //Sort and filter the fiveDay forecast data to get the daily minimum and maximum values
+    const temperatures= minmax.sortData(fiveForecast.list);
+
     //Update table forecast
     tableforecast.innerHTML=`
                             <thead>
@@ -68,31 +75,31 @@ const updateUI = (data) => {
                             <tbody>
                                 <tr>
                                 <th scope="row">${timecon.convertDay(cityWeather.dt,1)}</th>
-                                <td>${fiveForecast.list[4].main.temp_min}°C</td>
-                                <td>${fiveForecast.list[4].main.temp_min}°C</td>
-                                <td>${fiveForecast.list[4].weather[0].main}</td>
+                                <td>${temperatures[1].min}°C</td>
+                                <td>${temperatures[1].max}°C</td>
+                                <td>${temperatures[1].desc}</td>
                                 </tr>
                                 <tr>
                                 <th scope="row">${timecon.convertDay(cityWeather.dt,2)}</th>
-                                <td>${fiveForecast.list[12].main.temp_min}°C</td>
-                                <td>${fiveForecast.list[12].main.temp_min}°C</td>
-                                <td>${fiveForecast.list[12].weather[0].main}</td>
+                                <td>${temperatures[2].min}°C</td>
+                                <td>${temperatures[2].max}°C</td>
+                                <td>${temperatures[2].desc}</td>
                                 </tr>
                                 <tr>
                                 <th scope="row">${timecon.convertDay(cityWeather.dt,3)}</th>
-                                <td>${fiveForecast.list[20].main.temp_min}°C</td>
-                                <td>${fiveForecast.list[20].main.temp_min}°C</td>
-                                <td>${fiveForecast.list[20].weather[0].main}</td>
+                                <td>${temperatures[3].min}°C</td>
+                                <td>${temperatures[3].max}°C</td>
+                                <td>${temperatures[3].desc}</td>
                                 </tr>
                                 <th scope="row">${timecon.convertDay(cityWeather.dt,4)}</th>
-                                <td>${fiveForecast.list[28].main.temp_min}°C</td>
-                                <td>${fiveForecast.list[28].main.temp_min}°C</td>
-                                <td>${fiveForecast.list[28].weather[0].main}</td>
+                                <td>${temperatures[4].min}°C</td>
+                                <td>${temperatures[4].max}°C</td>
+                                <td>${temperatures[4].desc}</td>
                                 </tr>
                                 <th scope="row">${timecon.convertDay(cityWeather.dt,5)}</th>
-                                <td>${fiveForecast.list[36].main.temp_min}°C</td>
-                                <td>${fiveForecast.list[36].main.temp_min}°C</td>
-                                <td>${fiveForecast.list[36].weather[0].main}</td>
+                                <td>${temperatures[5].min}°C</td>
+                                <td>${temperatures[5].max}°C</td>
+                                <td>${temperatures[5].desc}</td>
                                 </tr>
                             </tbody>
                             `;

@@ -8,17 +8,21 @@ const cityInfo = document.querySelectorAll('.cityinfo');
 const cityChange = document.querySelector('.cityinfo button');
 const sunrise = document.querySelector('.sunrise-text');
 const sunset = document.querySelector('.sunset-text');
+const tableforecast = document.querySelector('#forecast table');
 
+//Calls to objects
 const forecast = new Forecast();
 const timecon = new timeConvert();
+const avgtemp = new avgTemp();
+
 
 const updateUI = (data) => {
 
     //destructure properties
-    const {cityWeather} = data;
-    console.log(timecon.convertTime(cityWeather.sys.sunrise));
+    const {cityWeather, fiveForecast} = data;
 
-
+    const today = timecon.convertDay(cityWeather.dt,0);
+    const date = timecon.convertTimeDate(cityWeather.dt);
     // Update details template ${cityDets.weather[0].description}
     details.innerHTML=`
         <div class="text-muted text-uppercase text-center details">
@@ -28,6 +32,7 @@ const updateUI = (data) => {
                 <span>${cityWeather.main.temp}</span>
                 <span>&deg;C</span>
             </div>
+            <p class="my-3">${today}, ${date}</p>
         </div>
         `;
     //Remove d-none class if present
@@ -44,17 +49,54 @@ const updateUI = (data) => {
 
     //Update sunrise and sunset cards
     const timeSunrise= timecon.convertTime(cityWeather.sys.sunrise);
-    console.log('sunrise', timeSunrise);
     const timeSunset= timecon.convertTime(cityWeather.sys.sunset);
     sunrise.textContent=`${timeSunrise}`;
     sunset.textContent=`${timeSunset}`;
     
-    //Update region
-    // region.innerHTML = `
-    //                     <h3>${cityDets.Country.LocalizedName} - </h3>
-    //                     <h3>${cityDets.Region.LocalizedName}</h3>
-    //                     `;
+    avgtemp.avgCalc(fiveForecast.list);
 
+    //Update table forecast
+    tableforecast.innerHTML=`
+                            <thead>
+                                <tr>
+                                <th scope="col">Day</th>
+                                <th scope="col">Min</th>
+                                <th scope="col">Max</th>
+                                <th scope="col">Desc</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <th scope="row">${timecon.convertDay(cityWeather.dt,1)}</th>
+                                <td>${fiveForecast.list[4].main.temp_min}°C</td>
+                                <td>${fiveForecast.list[4].main.temp_min}°C</td>
+                                <td>${fiveForecast.list[4].weather[0].main}</td>
+                                </tr>
+                                <tr>
+                                <th scope="row">${timecon.convertDay(cityWeather.dt,2)}</th>
+                                <td>${fiveForecast.list[12].main.temp_min}°C</td>
+                                <td>${fiveForecast.list[12].main.temp_min}°C</td>
+                                <td>${fiveForecast.list[12].weather[0].main}</td>
+                                </tr>
+                                <tr>
+                                <th scope="row">${timecon.convertDay(cityWeather.dt,3)}</th>
+                                <td>${fiveForecast.list[20].main.temp_min}°C</td>
+                                <td>${fiveForecast.list[20].main.temp_min}°C</td>
+                                <td>${fiveForecast.list[20].weather[0].main}</td>
+                                </tr>
+                                <th scope="row">${timecon.convertDay(cityWeather.dt,4)}</th>
+                                <td>${fiveForecast.list[28].main.temp_min}°C</td>
+                                <td>${fiveForecast.list[28].main.temp_min}°C</td>
+                                <td>${fiveForecast.list[28].weather[0].main}</td>
+                                </tr>
+                                <th scope="row">${timecon.convertDay(cityWeather.dt,5)}</th>
+                                <td>${fiveForecast.list[36].main.temp_min}°C</td>
+                                <td>${fiveForecast.list[36].main.temp_min}°C</td>
+                                <td>${fiveForecast.list[36].weather[0].main}</td>
+                                </tr>
+                            </tbody>
+                            `;
+    
 };
 
 const toggleSearch = () =>{
@@ -81,7 +123,7 @@ cityForm.addEventListener('submit', e => {
 
     //Store the last value entered by the user into the localstorage
     localStorage.setItem('city', city);
-    // console.log(city);
+
 });
 
 if (localStorage.getItem('city')) {

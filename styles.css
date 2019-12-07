@@ -2,6 +2,11 @@ body{
     background: #d4ffeb;
     letter-spacing: 0.2em;
     font-size: 0.8em;
+    background: url(/img/bck.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 .container{
     max-width: 400px;

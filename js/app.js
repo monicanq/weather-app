@@ -40,9 +40,9 @@ const updateUI = (data) => {
         </div>
         `;
     //Remove d-none class if present
-    if(card.classList.contains('d-none')){
-        card.classList.remove('d-none');
-    }
+    // if(card.classList.contains('d-none')){
+    //     card.classList.remove('d-none');
+    // }
 
     //Update time image
     const daytime =(cityWeather.dt>=cityWeather.sys.sunrise && cityWeather.dt<= cityWeather.sys.sunset)? 'img/day.svg' : 'img/night.svg';
@@ -121,12 +121,17 @@ cityForm.addEventListener('submit', e => {
 
     //Update the interface with the city info
     forecast.updateCity(city)
-    .then(data=> updateUI(data))
+    .then(data=> {
+        if(data.cityWeather.cod !=='404'){
+            //Hide the search bar
+            toggleSearch();
+            //update ui
+            updateUI(data);
+        }
+        })
     .catch(err => console.log(err));
 
-    //Hide the search bar
-    toggleSearch();
-
+    
 
     //Store the last value entered by the user into the localstorage
     localStorage.setItem('city', city);
@@ -135,9 +140,16 @@ cityForm.addEventListener('submit', e => {
 
 if (localStorage.getItem('city')) {
     //Hide the search bar
-    toggleSearch();
+    // toggleSearch();
     forecast.updateCity(localStorage.getItem('city'))
-        .then(data=>updateUI(data))
+        .then(data=>{
+            if(data.cityWeather.cod !=='404'){
+                //Hide the search bar
+                toggleSearch();
+                //update ui
+                updateUI(data);
+            }
+            })
         .catch(err => console.log(err));
     
 }

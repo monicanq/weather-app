@@ -140,7 +140,6 @@ cityForm.addEventListener('submit', e => {
 
 if (localStorage.getItem('city')) {
     //Hide the search bar
-    // toggleSearch();
     forecast.updateCity(localStorage.getItem('city'))
         .then(data=>{
             if(data.cityWeather.cod !=='404'){

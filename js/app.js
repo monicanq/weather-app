@@ -75,31 +75,31 @@ const updateUI = (data) => {
                             <tbody>
                                 <tr>
                                 <th scope="row">${timecon.convertDay(cityWeather.dt,1)}</th>
+                                <td>${temperatures[0].min}°C</td>
+                                <td>${temperatures[0].max}°C</td>
+                                <td>${temperatures[0].desc}</td>
+                                </tr>
+                                <tr>
+                                <th scope="row">${timecon.convertDay(cityWeather.dt,2)}</th>
                                 <td>${temperatures[1].min}°C</td>
                                 <td>${temperatures[1].max}°C</td>
                                 <td>${temperatures[1].desc}</td>
                                 </tr>
                                 <tr>
-                                <th scope="row">${timecon.convertDay(cityWeather.dt,2)}</th>
+                                <th scope="row">${timecon.convertDay(cityWeather.dt,3)}</th>
                                 <td>${temperatures[2].min}°C</td>
                                 <td>${temperatures[2].max}°C</td>
                                 <td>${temperatures[2].desc}</td>
                                 </tr>
-                                <tr>
-                                <th scope="row">${timecon.convertDay(cityWeather.dt,3)}</th>
+                                <th scope="row">${timecon.convertDay(cityWeather.dt,4)}</th>
                                 <td>${temperatures[3].min}°C</td>
                                 <td>${temperatures[3].max}°C</td>
                                 <td>${temperatures[3].desc}</td>
                                 </tr>
-                                <th scope="row">${timecon.convertDay(cityWeather.dt,4)}</th>
+                                <th scope="row">${timecon.convertDay(cityWeather.dt,5)}</th>
                                 <td>${temperatures[4].min}°C</td>
                                 <td>${temperatures[4].max}°C</td>
                                 <td>${temperatures[4].desc}</td>
-                                </tr>
-                                <th scope="row">${timecon.convertDay(cityWeather.dt,5)}</th>
-                                <td>${temperatures[5].min}°C</td>
-                                <td>${temperatures[5].max}°C</td>
-                                <td>${temperatures[5].desc}</td>
                                 </tr>
                             </tbody>
                             `;

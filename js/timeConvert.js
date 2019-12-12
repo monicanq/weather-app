@@ -28,13 +28,14 @@ class timeConvert{
         return time;
     };
     convertDay(timestamp, addedDays){
-        const a = new Date(timestamp * 1000);
-        const week = ['Mon','Tue', 'Wed', 'Thu','Fri','Sat', 'Sun'];
+        const a = new Date(Date.now());
         const weekday = a.getDay();
-        if (weekday+addedDays<7){
-            return week[weekday+addedDays];
+        const week = ['Mon','Tue', 'Wed', 'Thu','Fri','Sat', 'Sun'];
+        
+        if (weekday+addedDays<=7){
+            return week[weekday+addedDays-1];
         } else{
-            return week[weekday+addedDays-7];
+            return week[weekday+addedDays-8];
         }
         
     }
